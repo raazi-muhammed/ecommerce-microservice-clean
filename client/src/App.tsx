@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button } from "@nextui-org/react";
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Divider,
+    Link,
+    Image,
+} from "@nextui-org/react";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <div>
+            <Button color="primary">Button</Button>
+            <Card className="max-w-[400px]">
+                <CardHeader className="flex gap-3">
+                    <Image
+                        alt="nextui logo"
+                        height={40}
+                        radius="sm"
+                        src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+                        width={40}
+                    />
+                    <div className="flex flex-col">
+                        <p className="text-md">NextUI</p>
+                        <p className="text-small text-default-500">
+                            nextui.org
+                        </p>
+                    </div>
+                </CardHeader>
+                <Divider />
+                <CardBody>
+                    <p>
+                        Make beautiful websites regardless of your design
+                        experience.
+                    </p>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                    <Link
+                        isExternal
+                        showAnchorIcon
+                        href="https://github.com/nextui-org/nextui"
+                    >
+                        Visit source code on GitHub.
+                    </Link>
+                </CardFooter>
+            </Card>
+        </div>
+    );
 }
 
-export default App
+export default App;

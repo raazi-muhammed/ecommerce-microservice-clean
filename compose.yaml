@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+    client:
+        build: ./client
+        container_name: emc-client
+        ports:
+            - 8080:8080
+        develop:
+            watch:
+                - action: sync
+                  path: ./client
+                  target: /client
+                  ignore:
+                      - node_modules/
+                - action: rebuild
+                  path: ./client/package.json
