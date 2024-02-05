@@ -76,13 +76,13 @@ export default function SignUpPage() {
                             variant="bordered"
                             endContent={
                                 <button
-                                    className="focus:outline-none"
+                                    className="focus:outline-primary rounded-full my-auto w-6 h-6"
                                     type="button"
                                     onClick={toggleVisibility}>
                                     {isVisible ? (
-                                        <EyeCloseIcon className="mb-2 text-default-500 pointer-events-none" />
+                                        <EyeCloseIcon className="text-default-500 pointer-events-none" />
                                     ) : (
-                                        <EyeOpenIcon className="mb-2 text-default-500 pointer-events-none" />
+                                        <EyeOpenIcon className="text-default-500 pointer-events-none" />
                                     )}
                                 </button>
                             }

@@ -1,18 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Input,
-} from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { useState } from "react";
 import { IoEye as EyeOpenIcon } from "react-icons/io5";
 import { IoEyeOff as EyeCloseIcon } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Link } from "react-router-dom";
 
 const schema = z.object({
     email: z.string().email(),
@@ -44,7 +36,7 @@ export default function LoginPage() {
         <div className="grid place-content-center h-screen">
             <Card className="w-screen max-w-sm">
                 <CardHeader>
-                    <p className="mx-1 mt-2 text-3xl font-bold">Login</p>
+                    <p className="mx-1 mt-2 text-3xl font-bold">Admin</p>
                 </CardHeader>
                 <CardBody>
                     <form
@@ -70,9 +62,9 @@ export default function LoginPage() {
                                     type="button"
                                     onClick={toggleVisibility}>
                                     {isVisible ? (
-                                        <EyeCloseIcon className="text-default-500 pointer-events-none" />
+                                        <EyeCloseIcon className="m-auto p-auto text-default-500 pointer-events-none" />
                                     ) : (
-                                        <EyeOpenIcon className="text-default-500 pointer-events-none" />
+                                        <EyeOpenIcon className="m-auto p-auto text-default-500 pointer-events-none" />
                                     )}
                                 </button>
                             }
@@ -91,13 +83,6 @@ export default function LoginPage() {
                         </Button>
                     </form>
                 </CardBody>
-                <CardFooter>
-                    <Link
-                        to="/sign-up"
-                        className="text-center text-xs mx-auto mb-2 -mt-2 hover:text-primary-500 hover:underline">
-                        Don't have an account? Sign Up
-                    </Link>
-                </CardFooter>
             </Card>
         </div>
     );

@@ -15,7 +15,7 @@ export default function NavBar() {
     return (
         <Navbar>
             <NavbarBrand>
-                <p className="font-bold text-inherit">Mini Ecom</p>
+                <p className="font-bold text-inherit">Shop</p>
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
