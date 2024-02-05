@@ -14,3 +14,21 @@ services:
                       - node_modules/
                 - action: rebuild
                   path: ./client/package.json
+    auth:
+        build: ./auth
+        container_name: emc-auth
+        ports:
+            - 4000:4000
+        env_file:
+            - path: ./auth/.env
+              required: true
+        develop:
+            watch:
+                - action: sync
+                  path: ./auth
+                  target: /auth
+                  ignore:
+                      - node_modules/
+                      - dist/
+                - action: rebuild
+                  path: ./auth/package.json
