@@ -17,11 +17,15 @@ services:
     auth:
         build: ./auth
         container_name: emc-auth
+        depends_on:
+            - db-user
         ports:
             - 4000:4000
         env_file:
             - path: ./auth/.env
               required: true
+        environment:
+            DB_URL: mongodb://root:example@db-user:27017
         develop:
             watch:
                 - action: sync
@@ -32,3 +36,17 @@ services:
                       - dist/
                 - action: rebuild
                   path: ./auth/package.json
+    db-user:
+        build: ./db-user
+        image: mongo
+        restart: always
+        ports:
+            - 27017:27017
+        volumes:
+            - db_user:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+
+volumes:
+    db_user: {}
