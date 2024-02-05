@@ -5,6 +5,8 @@ import { IoEye as EyeOpenIcon } from "react-icons/io5";
 import { IoEyeOff as EyeCloseIcon } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import API from "../../lib/client";
+import toast from "react-hot-toast";
 
 const schema = z.object({
     email: z.string().email(),
@@ -28,8 +30,7 @@ export default function LoginPage() {
     const { errors, isDirty, isValid, isSubmitting } = formState;
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
-        await new Promise((res) => setTimeout(res, 500));
-        console.log(values);
+        await API.post("/admin/login", values, { toast });
     };
 
     return (

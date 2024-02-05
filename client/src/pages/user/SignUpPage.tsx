@@ -13,6 +13,8 @@ import { IoEyeOff as EyeCloseIcon } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Link } from "react-router-dom";
+import API from "../../lib/client";
+import toast from "react-hot-toast";
 
 const schema = z.object({
     email: z.string().email(),
@@ -37,8 +39,7 @@ export default function SignUpPage() {
     const { errors, isDirty, isValid, isSubmitting } = formState;
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
-        await new Promise((res) => setTimeout(res, 500));
-        console.log(values);
+        await API.post("/sign-up", values, { toast });
     };
 
     return (

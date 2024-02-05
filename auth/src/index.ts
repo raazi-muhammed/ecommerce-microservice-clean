@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import "./database/db.js";
 import userModel from "./modal/userModel.js";
 import authRoutes from "./routes/index.js";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -15,7 +16,12 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(
+    cors({
+        origin: ["http://localhost:8080"],
+        credentials: true,
+    })
+);
 app.get("/api/auth/get-user", async (req, res) => {
     const data = await userModel.find();
     res.status(200).json({
@@ -28,6 +34,8 @@ app.get("/api/auth/get-user", async (req, res) => {
 app.use("/api/auth", authRoutes);
 
 app.get("*", (req, res) => {
+    console.log(req.method, req.originalUrl);
+
     res.send("Auth server reached");
     console.log("Auth server reached");
 });
