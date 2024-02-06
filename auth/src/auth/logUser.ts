@@ -36,7 +36,6 @@ export default function buildLogUser({ passwordHash, token }: BuildLogUser) {
             email: userData.email,
             _id: userData._id,
         });
-        console.log(authorizationToken);
 
         return Object.freeze({
             userData,

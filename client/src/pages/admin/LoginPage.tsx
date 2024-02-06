@@ -32,7 +32,8 @@ export default function LoginPage() {
     const { errors, isDirty, isValid, isSubmitting } = formState;
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
-        const data = await API.post("/auth/admin/login", values, { toast });
+        const api = new API();
+        const data = await api.auth().post("/admin/login", values, { toast });
         if (data.success) navigate("/admin/dashboard");
     };
 

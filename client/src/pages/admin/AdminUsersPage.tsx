@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Card } from "@nextui-org/react";
+import API from "../../lib/client";
 
 type Props = {};
 
 export default function AdminUsersPage({}: Props) {
     const [userList, setUserList] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:4001/api/user/all-users").then((res) => {
-            console.log(res);
-            setUserList(res.data.users);
-        });
+        const api = new API();
+        api.user()
+            .get("/all-users")
+            .then((res) => {
+                console.log(res);
+                setUserList(res.users);
+            })
+            .catch((err) => console.log(err));
     }, []);
     return (
         <div>

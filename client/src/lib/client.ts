@@ -1,54 +1,65 @@
 import axios from "axios";
-const server = "http://localhost:4000/api";
-
-axios.defaults.baseURL = server;
 type Options = {
     toast?: { error: (str: string) => void; success: (str: string) => void };
 };
 
-async function get(url: string, params = {}, options: Options = {}) {
-    return axios({
-        url,
-        method: "GET",
-        withCredentials: true,
-        params,
-    })
-        .then((res) => res.data)
-        .catch((err) => {
-            console.log(err);
-            if (options?.toast) {
-                options.toast.error(
-                    err.response?.data?.message || "Invalid Details"
-                );
-            }
-        });
-}
+export default class API {
+    baseUrl: string;
+    constructor() {
+        this.baseUrl = "http://";
+        return this;
+    }
 
-async function post(url: string, data = {}, options: Options = {}) {
-    return axios({
-        url,
-        method: "POST",
-        withCredentials: true,
-        data,
-    })
-        .then((res) => {
-            if (options?.toast) {
-                options.toast.success(res?.data?.message || "Successful");
-            }
-            return res.data;
+    auth() {
+        this.baseUrl += "localhost:4000/api/auth";
+        return this;
+    }
+    user() {
+        this.baseUrl += "localhost:4001/api/user";
+        return this;
+    }
+
+    async get(url: string, params = {}, options: Options = {}) {
+        return axios({
+            baseURL: this.baseUrl,
+            url,
+            method: "GET",
+            withCredentials: true,
+            params,
         })
-        .catch((err) => {
-            console.log(err);
-            if (options?.toast) {
-                options.toast.error(
-                    err.response?.data?.message || "Invalid Details"
-                );
-            }
-            return err.response.data;
-        });
-}
+            .then((res) => res.data)
+            .catch((err) => {
+                console.log(err);
+                if (options?.toast) {
+                    options.toast.error(
+                        err.response?.data?.message || "Invalid Details"
+                    );
+                }
+            });
+    }
 
-export default {
-    get,
-    post,
-};
+    async post(url: string, data = {}, options: Options = {}) {
+        return axios({
+            baseURL: this.baseUrl,
+            url,
+            method: "POST",
+            withCredentials: true,
+            data,
+        })
+            .then((res) => {
+                if (options?.toast) {
+                    options.toast.success(res?.data?.message || "Successful");
+                }
+                return res.data;
+            })
+            .catch((err) => {
+                console.log(err);
+                if (options?.toast) {
+                    options.toast.error(
+                        err.response?.data?.message || "Invalid Details"
+                    );
+                }
+                return err.response.data;
+            });
+    }
+}

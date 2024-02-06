@@ -58,6 +58,28 @@ services:
                       - dist/
                 - action: rebuild
                   path: ./user/package.json
+    product:
+        build: ./product
+        container_name: emc-product
+        depends_on:
+            - db-product
+        ports:
+            - 4002:4002
+        env_file:
+            - path: ./product/.env
+              required: true
+        environment:
+            DB_URL: mongodb://root:example@db-product:27017
+        develop:
+            watch:
+                - action: sync
+                  path: ./product
+                  target: /product
+                  ignore:
+                      - node_modules/
+                      - dist/
+                - action: rebuild
+                  path: ./product/package.json
     db-user:
         build: ./db-user
         image: mongo
@@ -69,6 +91,20 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: example
+    db-product:
+        build: ./db-product
+        image: mongo
+        restart: always
+        ports:
+            - 27018:27017
+        volumes:
+            - db_product:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
 
 volumes:
-    db_user: {}
+    db_user:
+        name: db_user_data
+    db_product:
+        name: db_product_data

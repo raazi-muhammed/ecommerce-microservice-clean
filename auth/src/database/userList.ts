@@ -1,10 +1,8 @@
+import { UserObjectType } from "../modal/userModel.js";
+
 export default function makeUserList({ database }) {
     return Object.freeze({
-        add: async function add(userData: {
-            email: string;
-            username: string;
-            password: string;
-        }) {
+        add: async function add(userData: UserObjectType) {
             return await database.create(userData);
         },
         findByEmail: async function findByEmail(email: string) {

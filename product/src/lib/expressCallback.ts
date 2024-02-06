@@ -19,6 +19,8 @@ export default function makeCallback(controller: Function) {
                 });
             }
         } catch (error) {
+            console.log(error);
+
             res.status(500).json({
                 success: false,
                 message: error.message || "Internal server error",

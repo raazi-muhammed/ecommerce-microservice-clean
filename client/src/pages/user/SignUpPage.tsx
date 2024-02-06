@@ -39,7 +39,8 @@ export default function SignUpPage() {
     const { errors, isDirty, isValid, isSubmitting } = formState;
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
-        await API.post("/auth/sign-up", values, { toast });
+        const api = new API();
+        await api.auth().post("/sign-up", values, { toast });
     };
 
     return (

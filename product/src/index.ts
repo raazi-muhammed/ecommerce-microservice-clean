@@ -1,10 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import "./database/db.js";
-import userModel from "./modal/userModel.js";
-import authRoutes from "./routes/index.js";
 import cors from "cors";
+import productRoutes from "./routes/index.js";
+import "./database/connect.js";
 
 const app = express();
 dotenv.config();
@@ -22,22 +21,14 @@ app.use(
         credentials: true,
     })
 );
-app.get("/api/auth/get-user", async (req, res) => {
-    const data = await userModel.find();
-    res.status(200).json({
-        success: true,
-        message: "User logged in",
-        data,
-    });
-});
 
-app.use("/api/auth", authRoutes);
+app.use("/api/product", productRoutes);
 
 app.get("*", (req, res) => {
     console.log(req.method, req.originalUrl);
 
-    console.log("Auth server reached");
-    res.send("Auth server reached");
+    res.send("Product server reached");
+    console.log("Product server reached");
 });
 
 app.listen(PORT, () => {
