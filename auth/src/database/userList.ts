@@ -5,8 +5,6 @@ export default function makeUserList({ database }) {
             username: string;
             password: string;
         }) {
-            console.log("userData db userlist", userData);
-
             return await database.create(userData);
         },
         findByEmail: async function findByEmail(email: string) {

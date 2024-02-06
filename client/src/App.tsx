@@ -5,6 +5,9 @@ import AdminLoginPage from "./pages/admin/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpPage from "./pages/user/SignUpPage";
 import { Toaster } from "react-hot-toast";
+import AdminProductsPage from "./pages/admin/AdminProductsPage";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
+import AdminLayout from "./pages/admin/AdminLayout";
 
 function App() {
     return (
@@ -21,7 +24,16 @@ function App() {
                         </>
                     }
                 />
-                <Route path="/admin/login" element={<AdminLoginPage />} />
+                <Route path="/admin">
+                    <Route path="login" element={<AdminLoginPage />} />
+                    <Route path="dashboard" element={<AdminLayout />}>
+                        <Route path="users" element={<AdminUsersPage />} />
+                        <Route
+                            path="products"
+                            element={<AdminProductsPage />}
+                        />
+                    </Route>
+                </Route>
             </Routes>
             <Toaster
                 toastOptions={{

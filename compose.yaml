@@ -36,6 +36,28 @@ services:
                       - dist/
                 - action: rebuild
                   path: ./auth/package.json
+    user:
+        build: ./user
+        container_name: emc-user
+        depends_on:
+            - db-user
+        ports:
+            - 4001:4001
+        env_file:
+            - path: ./user/.env
+              required: true
+        environment:
+            DB_URL: mongodb://root:example@db-user:27017
+        develop:
+            watch:
+                - action: sync
+                  path: ./user
+                  target: /user
+                  ignore:
+                      - node_modules/
+                      - dist/
+                - action: rebuild
+                  path: ./user/package.json
     db-user:
         build: ./db-user
         image: mongo

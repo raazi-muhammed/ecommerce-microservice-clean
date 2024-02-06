@@ -1,5 +1,5 @@
 import axios from "axios";
-const server = "http://localhost:4000/api/auth";
+const server = "http://localhost:4000/api";
 
 axios.defaults.baseURL = server;
 type Options = {

@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import API from "../../lib/client";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
     email: z.string().email(),
@@ -14,6 +15,7 @@ const schema = z.object({
 });
 
 export default function LoginPage() {
+    const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -30,7 +32,8 @@ export default function LoginPage() {
     const { errors, isDirty, isValid, isSubmitting } = formState;
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
-        await API.post("/admin/login", values, { toast });
+        const data = await API.post("/auth/admin/login", values, { toast });
+        if (data.success) navigate("/admin/dashboard");
     };
 
     return (

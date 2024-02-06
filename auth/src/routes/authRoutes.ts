@@ -1,4 +1,5 @@
 import express from "express";
+import makeCallback from "../lib/expressCallback.js";
 
 export default function makeRoutes({
     loginController,
@@ -7,9 +8,9 @@ export default function makeRoutes({
 }) {
     const router = express.Router();
 
-    router.post("/login", loginController);
-    router.post("/sign-up", signUpController);
-    router.post("/admin/login", loginAdminController);
+    router.post("/login", makeCallback(loginController));
+    router.post("/sign-up", makeCallback(signUpController));
+    router.post("/admin/login", makeCallback(loginAdminController));
 
     return router;
 }
