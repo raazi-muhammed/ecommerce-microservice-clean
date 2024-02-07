@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
     cors({
-        origin: ["http://localhost:8080"],
+        origin: ["http://localhost:8080", "http://localhost:4003"],
         credentials: true,
     })
 );

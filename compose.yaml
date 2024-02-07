@@ -80,6 +80,28 @@ services:
                       - dist/
                 - action: rebuild
                   path: ./product/package.json
+    cart:
+        build: ./cart
+        container_name: emc-cart
+        depends_on:
+            - db-cart
+        ports:
+            - 4003:4003
+        env_file:
+            - path: ./cart/.env
+              required: true
+        environment:
+            DB_URL: mongodb://root:example@db-cart:27017
+        develop:
+            watch:
+                - action: sync
+                  path: ./cart
+                  target: /cart
+                  ignore:
+                      - node_modules/
+                      - dist/
+                - action: rebuild
+                  path: ./cart/package.json
     db-user:
         build: ./db-user
         image: mongo
@@ -102,9 +124,22 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: example
+    db-cart:
+        build: ./db-cart
+        image: mongo
+        restart: always
+        ports:
+            - 27019:27017
+        volumes:
+            - db_cart:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
 
 volumes:
     db_user:
         name: db_user_data
     db_product:
         name: db_product_data
+    db_cart:
+        name: db_cart_data
