@@ -40,7 +40,7 @@ export default function SignUpPage() {
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
         const api = new API();
-        await api.auth().post("/sign-up", values, { toast });
+        await api.auth().post("/sign-up", { data: values }, { toast });
     };
 
     return (

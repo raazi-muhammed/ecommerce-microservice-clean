@@ -3,34 +3,33 @@ import {
     NavbarBrand,
     NavbarContent,
     NavbarItem,
-    Link,
     DropdownItem,
     DropdownTrigger,
     Dropdown,
     DropdownMenu,
     Avatar,
 } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+import { IoBag as ShopIcon } from "react-icons/io5";
 
 export default function NavBar() {
     return (
         <Navbar>
             <NavbarBrand>
-                <p className="font-bold text-inherit">Shop</p>
+                <Link to="/" className="flex gap-2 align-middle">
+                    <ShopIcon className="my-auto mb-1" size="1.2em" />
+                    <p className="font-bold text-xl">Shop</p>
+                </Link>
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 <NavbarItem>
-                    <Link color="foreground" href="#">
-                        Features
-                    </Link>
-                </NavbarItem>
-                <NavbarItem isActive>
-                    <Link href="/sign-up" aria-current="page" color="secondary">
+                    <Link to="/sign-up" aria-current="page" color="secondary">
                         Signup
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link color="foreground" href="/login">
+                    <Link color="foreground" to="/login">
                         Login
                     </Link>
                 </NavbarItem>
@@ -43,30 +42,19 @@ export default function NavBar() {
                     <DropdownTrigger>
                         <Avatar
                             isBordered
+                            showFallback
                             as="button"
                             className="transition-transform"
-                            color="secondary"
-                            name="Jason Hughes"
                             size="sm"
-                            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                         />
                     </DropdownTrigger>
                     <DropdownMenu aria-label="Profile Actions" variant="flat">
                         <DropdownItem key="profile" className="h-14 gap-2">
                             <p className="font-semibold">Signed in as</p>
-                            <p className="font-semibold">zoey@example.com</p>
+                            <p className="font-semibold">test@test.com</p>
                         </DropdownItem>
-                        <DropdownItem key="settings">My Settings</DropdownItem>
-                        <DropdownItem key="team_settings">
-                            Team Settings
-                        </DropdownItem>
-                        <DropdownItem key="analytics">Analytics</DropdownItem>
-                        <DropdownItem key="system">System</DropdownItem>
-                        <DropdownItem key="configurations">
-                            Configurations
-                        </DropdownItem>
-                        <DropdownItem key="help_and_feedback">
-                            Help & Feedback
+                        <DropdownItem key="settings">
+                            <Link to="/profile">Profile</Link>
                         </DropdownItem>
                         <DropdownItem key="logout" color="danger">
                             Log Out

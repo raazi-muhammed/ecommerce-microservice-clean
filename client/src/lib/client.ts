@@ -1,12 +1,15 @@
 import axios from "axios";
+import cookies from "js-cookie";
 type Options = {
     toast?: { error: (str: string) => void; success: (str: string) => void };
 };
 
 export default class API {
     baseUrl: string;
+    token: string;
     constructor() {
         this.baseUrl = "http://";
+        this.token = cookies.get("__emc-user-token") || "";
         return this;
     }
 
@@ -18,10 +21,15 @@ export default class API {
         this.baseUrl += "localhost:4001/api/user";
         return this;
     }
+    product() {
+        this.baseUrl += "localhost:4002/api/product";
+        return this;
+    }
 
     async get(url: string, params = {}, options: Options = {}) {
         return axios({
             baseURL: this.baseUrl,
+            headers: { Authorization: `Bearer ${this.token}` },
             url,
             method: "GET",
             withCredentials: true,
@@ -38,13 +46,45 @@ export default class API {
             });
     }
 
-    async post(url: string, data = {}, options: Options = {}) {
+    async post(url: string, { data = {}, params = {} }, options: Options = {}) {
         return axios({
             baseURL: this.baseUrl,
+            headers: { Authorization: `Bearer ${this.token}` },
             url,
             method: "POST",
             withCredentials: true,
             data,
+            params,
+        })
+            .then((res) => {
+                if (options?.toast) {
+                    options.toast.success(res?.data?.message || "Successful");
+                }
+                return res.data;
+            })
+            .catch((err) => {
+                console.log(err);
+                if (options?.toast) {
+                    options.toast.error(
+                        err.response?.data?.message || "Invalid Details"
+                    );
+                }
+                return err.response.data;
+            });
+    }
+    async patch(
+        url: string,
+        { data = {}, params = {} },
+        options: Options = {}
+    ) {
+        return axios({
+            baseURL: this.baseUrl,
+            headers: { Authorization: `Bearer ${this.token}` },
+            url,
+            method: "PATCH",
+            withCredentials: true,
+            data,
+            params,
         })
             .then((res) => {
                 if (options?.toast) {

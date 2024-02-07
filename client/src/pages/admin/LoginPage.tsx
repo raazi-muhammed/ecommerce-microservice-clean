@@ -33,7 +33,9 @@ export default function LoginPage() {
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
         const api = new API();
-        const data = await api.auth().post("/admin/login", values, { toast });
+        const data = await api
+            .auth()
+            .post("/admin/login", { data: values }, { toast });
         if (data.success) navigate("/admin/dashboard");
     };
 

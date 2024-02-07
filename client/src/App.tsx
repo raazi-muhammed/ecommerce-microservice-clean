@@ -1,4 +1,3 @@
-import NavBar from "./layout/user/NavBar";
 import HomePage from "./pages/user/HomePage";
 import UserLoginPage from "./pages/user/LoginPage";
 import AdminLoginPage from "./pages/admin/LoginPage";
@@ -7,7 +6,9 @@ import SignUpPage from "./pages/user/SignUpPage";
 import { Toaster } from "react-hot-toast";
 import AdminProductsPage from "./pages/admin/AdminProductsPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
-import AdminLayout from "./pages/admin/AdminLayout";
+import AdminLayout from "./layout/admin/AdminLayout";
+import ProfilePage from "./pages/user/ProfilePage";
+import UserLayout from "./layout/user/UserLayout";
 
 function App() {
     return (
@@ -15,15 +16,11 @@ function App() {
             <Routes>
                 <Route path="/login" element={<UserLoginPage />} />
                 <Route path="/sign-up" element={<SignUpPage />} />
-                <Route
-                    path="/"
-                    element={
-                        <>
-                            <NavBar />
-                            <HomePage />
-                        </>
-                    }
-                />
+
+                <Route element={<UserLayout />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                </Route>
                 <Route path="/admin">
                     <Route path="login" element={<AdminLoginPage />} />
                     <Route path="dashboard" element={<AdminLayout />}>

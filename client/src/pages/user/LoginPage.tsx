@@ -15,6 +15,7 @@ import * as z from "zod";
 import { Link } from "react-router-dom";
 import API from "../../lib/client";
 import toast from "react-hot-toast";
+import cookie from "js-cookie";
 
 const schema = z.object({
     email: z.string().email(),
@@ -39,7 +40,11 @@ export default function LoginPage() {
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
         const api = new API();
-        api.auth().post("/login", values, { toast });
+        const response = await api
+            .auth()
+            .post("/login", { data: values }, { toast });
+        console.log(response, response?.data?.token);
+        cookie.set("__emc-user-token", response.data.token);
     };
 
     return (

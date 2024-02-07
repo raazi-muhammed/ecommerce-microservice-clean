@@ -1,29 +1,36 @@
-import { Card, CardBody, Image, CardFooter, Button } from "@nextui-org/react";
+import { Card, CardBody, Image, Button } from "@nextui-org/react";
 import { IoCart as CartIcon } from "react-icons/io5";
+import { ProductType } from "../../types/databaseTypes";
 
-const ProductCard = () => {
+const ProductCard = ({ product }: { product: ProductType }) => {
     return (
-        <Card className="py-4" isPressable={true}>
-            <CardBody className="overflow-visible py-2">
+        <Card className="p-4" isPressable={true}>
+            <CardBody className="overflow-visible p-0 gap-4 grid grid-cols-2">
                 <Image
                     alt="Card background"
                     className="object-cover rounded-xl w-full aspect-square"
-                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D"
+                    src={product.images[0].url}
                 />
-            </CardBody>
-            <CardFooter className="flex justify-between align-bottom">
-                <section className="text-start">
-                    <small className="text-default-500">12 Tracks</small>
-                    <h4 className="font-bold text-large">Frontend Radio</h4>
+                <section className="my-auto">
+                    <section className="text-start">
+                        <h4 className="font-bold text-large">
+                            {product.title}
+                        </h4>
+                        <small className="text-default-500">
+                            {product.description}
+                        </small>
+                    </section>
+                    <Button
+                        className="mt-2"
+                        variant="flat"
+                        color="primary"
+                        size="sm"
+                        aria-label="Add to cart"
+                        startContent={<CartIcon size="1.3em" />}>
+                        Add to cart
+                    </Button>
                 </section>
-                <Button
-                    isIconOnly
-                    variant="flat"
-                    color="primary"
-                    aria-label="Add to cart">
-                    <CartIcon size="1.3em" />
-                </Button>
-            </CardFooter>
+            </CardBody>
         </Card>
     );
 };

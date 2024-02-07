@@ -7,5 +7,6 @@ export default function adaptRequest(req: Request) {
         params: req.params,
         query: req.query,
         body: req.body,
+        headers: req.headers,
     });
 }

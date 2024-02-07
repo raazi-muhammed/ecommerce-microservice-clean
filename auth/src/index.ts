@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import "./database/db.js";
 import userModel from "./modal/userModel.js";
 import authRoutes from "./routes/index.js";
@@ -14,6 +15,7 @@ if (!process.env.PORT) {
 
 const PORT = process.env.PORT;
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
