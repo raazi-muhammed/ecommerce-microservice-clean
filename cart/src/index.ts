@@ -1,9 +1,12 @@
-import express, { response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import "./database/connect.js";
 import cors from "cors";
-import axios from "axios";
+import amqp from "amqplib";
+import "./events/index.js";
+import cartRoutes from "./routes/index.js";
+
 const app = express();
 dotenv.config();
 if (!process.env.PORT) {
@@ -21,9 +24,21 @@ app.use(
     })
 );
 
-app.get("/api/cart/get-cart", (req, res) => {
+app.get("/api/cart/get-cart", async (req, res) => {
     console.log("get cart");
-    axios
+    try {
+        const connection = await amqp.connect("amqp://rabbitmq:5672");
+        const channel = await connection.createChannel();
+        const result = await channel.assertQueue("jobs");
+
+        channel.sendToQueue("jobs", Buffer.from("hello how are??"));
+        console.log("job send");
+    } catch (error) {
+        console.log(error);
+    }
+    res.send("hooi");
+
+    /* axios
         .get("http://auth:4000/api/auth/current-user", {
             headers: {
                 Authorization: req.headers.authorization,
@@ -36,8 +51,10 @@ app.get("/api/cart/get-cart", (req, res) => {
         .catch((err) => {
             console.log({ err });
             res.send({ err });
-        });
+        }); */
 });
+
+app.use("/api/cart", cartRoutes);
 
 app.get("*", (req, res) => {
     console.log(req.method, req.originalUrl);

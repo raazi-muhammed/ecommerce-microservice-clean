@@ -135,6 +135,10 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: example
+    rabbitmq:
+        image: rabbitmq
+        ports:
+            - 5672:5672
 
 volumes:
     db_user:
