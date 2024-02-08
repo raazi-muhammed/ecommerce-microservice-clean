@@ -1,17 +1,14 @@
-import amqp from "amqplib";
+import { makeBuffer } from "../lib/adaptMessage.js";
+import { Channel } from "amqplib";
 
-export async function addToCartEvent(eventData) {
-    try {
-        const connection = await amqp.connect("amqp://rabbitmq:5672");
-        const channel = await connection.createChannel();
-        const result = await channel.assertQueue("add-to-cart");
-
-        channel.sendToQueue(
-            "add-to-cart",
-            Buffer.from(JSON.stringify(eventData))
-        );
-        console.log("job send");
-    } catch (error) {
-        console.log(error);
-    }
+export default function buildAddToCart({ channel }: { channel: Channel }) {
+    return async function addToCart(eventData) {
+        try {
+            await channel.assertQueue("add-to-cart");
+            channel.sendToQueue("add-to-cart", makeBuffer(eventData));
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    };
 }

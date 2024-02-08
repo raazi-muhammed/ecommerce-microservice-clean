@@ -1,10 +1,11 @@
 import { ProductListType } from "../database/index.js";
-import { addToCartEvent } from "../events/addToCartEvent.js";
 
 export default function buildAddToCart({
     productList,
+    addToCartEvent,
 }: {
     productList: ProductListType;
+    addToCartEvent: (any: any) => void;
 }) {
     return async function addToCart({
         productId,
