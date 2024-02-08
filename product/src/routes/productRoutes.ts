@@ -33,7 +33,6 @@ export default function buildRoutes({
         "/add-to-cart",
         makeCallback(async (req) => {
             const user = await verifyUser(req);
-            console.log({ user });
 
             return await addToCartByIdUseCase({
                 productId: req.query?.id,

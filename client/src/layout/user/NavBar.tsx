@@ -9,10 +9,11 @@ import {
     DropdownMenu,
     Avatar,
 } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoBag as ShopIcon } from "react-icons/io5";
 
 export default function NavBar() {
+    const navigate = useNavigate();
     return (
         <Navbar>
             <NavbarBrand>
@@ -53,8 +54,15 @@ export default function NavBar() {
                             <p className="font-semibold">Signed in as</p>
                             <p className="font-semibold">test@test.com</p>
                         </DropdownItem>
-                        <DropdownItem key="settings">
-                            <Link to="/profile">Profile</Link>
+                        <DropdownItem
+                            key="settings"
+                            onClick={() => navigate("/profile")}>
+                            Profile
+                        </DropdownItem>
+                        <DropdownItem
+                            key="settings"
+                            onClick={() => navigate("/cart")}>
+                            <Link to="/cart">Cart</Link>
                         </DropdownItem>
                         <DropdownItem key="logout" color="danger">
                             Log Out

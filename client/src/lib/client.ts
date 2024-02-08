@@ -25,6 +25,10 @@ export default class API {
         this.baseUrl += "localhost:4002/api/product";
         return this;
     }
+    cart() {
+        this.baseUrl += "localhost:4003/api/cart";
+        return this;
+    }
 
     async get(url: string, params = {}, options: Options = {}) {
         return axios({

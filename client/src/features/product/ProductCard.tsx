@@ -1,8 +1,15 @@
 import { Card, CardBody, Image, Button } from "@nextui-org/react";
 import { IoCart as CartIcon } from "react-icons/io5";
 import { ProductType } from "../../types/databaseTypes";
+import API from "../../lib/client";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
+    function handleAddToCart() {
+        const api = new API();
+
+        api.product().post("/add-to-cart", { params: { id: product._id } });
+    }
+
     return (
         <Card className="p-4" isPressable={true}>
             <CardBody className="overflow-visible p-0 gap-4 grid grid-cols-2">
@@ -21,6 +28,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
                         </small>
                     </section>
                     <Button
+                        onClick={handleAddToCart}
                         className="mt-2"
                         variant="flat"
                         color="primary"

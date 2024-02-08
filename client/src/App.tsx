@@ -9,6 +9,7 @@ import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminLayout from "./layout/admin/AdminLayout";
 import ProfilePage from "./pages/user/ProfilePage";
 import UserLayout from "./layout/user/UserLayout";
+import CartPage from "./pages/user/CartPage";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route element={<UserLayout />}>
                     <Route index element={<HomePage />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/cart" element={<CartPage />} />
                 </Route>
                 <Route path="/admin">
                     <Route path="login" element={<AdminLoginPage />} />

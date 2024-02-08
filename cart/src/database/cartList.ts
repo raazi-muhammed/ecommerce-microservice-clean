@@ -6,5 +6,8 @@ export default function buildCartList({ database }) {
         getAll: async () => {
             return await database.find();
         },
+        getUsersCartById: async (userId: string) => {
+            return await database.find({ userId });
+        },
     });
 }
