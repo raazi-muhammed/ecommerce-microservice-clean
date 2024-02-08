@@ -8,7 +8,7 @@ export async function verifyUser(req) {
             },
         })
         .then((response) => {
-            console.log({ data: response.data.data.data });
+            console.log({ data: response.data.data });
             return response.data.data;
         })
         .catch((err) => {

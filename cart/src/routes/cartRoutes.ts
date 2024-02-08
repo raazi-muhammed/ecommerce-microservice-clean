@@ -5,6 +5,7 @@ export default function buildCartRoutes({
     verifyUser,
     getAllCartUseCase,
     getUserCartUseCase,
+    removeFromCartUseCase,
 }) {
     const router = express.Router();
 
@@ -19,6 +20,17 @@ export default function buildCartRoutes({
             if (!user) throw new Error("User not authorized");
 
             return getUserCartUseCase({ userId: user._id });
+        })
+    );
+    router.delete(
+        "/remove-from-cart",
+        makeCallback(async (req) => {
+            const user = await verifyUser(req);
+            if (!user) throw new Error("User not authorized");
+            console.log("intiated refoming");
+            console.log(req.query);
+
+            return removeFromCartUseCase({ id: req.query?.id });
         })
     );
 

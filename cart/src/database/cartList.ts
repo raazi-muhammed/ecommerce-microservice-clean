@@ -3,6 +3,9 @@ export default function buildCartList({ database }) {
         add: async (data) => {
             return await database.create(data);
         },
+        remove: async ({ id }: { id: string }) => {
+            return await database.deleteOne({ _id: id });
+        },
         getAll: async () => {
             return await database.find();
         },

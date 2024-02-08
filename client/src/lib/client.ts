@@ -50,6 +50,26 @@ export default class API {
             });
     }
 
+    async delete(url: string, { params = {} }, options: Options = {}) {
+        return axios({
+            baseURL: this.baseUrl,
+            headers: { Authorization: `Bearer ${this.token}` },
+            url,
+            method: "DELETE",
+            withCredentials: true,
+            params,
+        })
+            .then((res) => res.data)
+            .catch((err) => {
+                console.log(err);
+                if (options?.toast) {
+                    options.toast.error(
+                        err.response?.data?.message || "Invalid Details"
+                    );
+                }
+            });
+    }
+
     async post(url: string, { data = {}, params = {} }, options: Options = {}) {
         return axios({
             baseURL: this.baseUrl,
