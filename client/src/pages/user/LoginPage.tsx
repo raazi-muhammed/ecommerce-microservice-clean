@@ -12,7 +12,7 @@ import { IoEye as EyeOpenIcon } from "react-icons/io5";
 import { IoEyeOff as EyeCloseIcon } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../../lib/client";
 import toast from "react-hot-toast";
 import cookie from "js-cookie";
@@ -25,6 +25,7 @@ const schema = z.object({
 export default function LoginPage() {
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof schema>>({
         defaultValues: {
@@ -45,6 +46,7 @@ export default function LoginPage() {
             .post("/login", { data: values }, { toast });
         console.log(response, response?.data?.token);
         cookie.set("__emc-user-token", response.data.token);
+        navigate("/");
     };
 
     return (

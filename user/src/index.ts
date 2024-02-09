@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import "./database/db.js";
 import cors from "cors";
-import userModel from "./models/userModel.js";
+import userRoutes from "./routes/index.js";
 
 const app = express();
 dotenv.config();
@@ -22,12 +22,7 @@ app.use(
     })
 );
 
-app.get("/api/user/all-users", async (req, res) => {
-    const data = await userModel.find();
-    res.status(200).json({
-        users: data,
-    });
-});
+app.use("/api/user", userRoutes);
 
 app.get("*", (req, res) => {
     console.log(req.method, req.originalUrl);

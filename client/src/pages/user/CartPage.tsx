@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import API from "../../lib/client";
 import { ProductType } from "../../types/databaseTypes";
-import ProductCard from "../../features/product/ProductCard";
-import { Button } from "@nextui-org/react";
+import { Button, Card, CardBody, Image } from "@nextui-org/react";
+import { IoCart as CartIcon } from "react-icons/io5";
 
 export default function CartPage() {
     const [refresh, setRefresh] = useState(false);
@@ -43,18 +43,34 @@ export default function CartPage() {
         <div>
             <section className="space-y-4">
                 {cartItems.map((item) => (
-                    <div className="w-72">
-                        <ProductCard product={item.product} />
-                        <Button
-                            onClick={() => handleRemoveFromCart(item._id)}
-                            className="mt-2"
-                            variant="flat"
-                            color="danger"
-                            size="sm"
-                            aria-label="Add to cart">
-                            Remove
-                        </Button>
-                    </div>
+                    <Card className="p-4 mx-auto" isPressable={true}>
+                        <CardBody className="overflow-visible p-0 gap-4 flex-row">
+                            <Image
+                                alt="Card background"
+                                className="object-cover rounded-xl max-w-36 aspect-square "
+                                src={item.product.images[0].url}
+                            />
+                            <section className="my-auto w-36">
+                                <section className="text-start">
+                                    <h4 className="font-bold text-large">
+                                        {item.product.title}
+                                    </h4>
+                                    <small className="text-default-500">
+                                        {item.product.description}
+                                    </small>
+                                </section>
+                            </section>
+                            <Button
+                                onClick={() => handleRemoveFromCart(item._id)}
+                                isIconOnly
+                                className="my-auto"
+                                variant="flat"
+                                color="danger"
+                                aria-label="Remove from cart">
+                                <CartIcon />
+                            </Button>
+                        </CardBody>
+                    </Card>
                 ))}
             </section>
         </div>

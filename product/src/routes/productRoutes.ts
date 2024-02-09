@@ -31,12 +31,13 @@ export default function buildRoutes({
     );
     router.post(
         "/add-to-cart",
+        verifyUser,
         makeCallback(async (req) => {
-            const user = await verifyUser(req);
+            console.log(req.currentUser);
 
             return await addToCartByIdUseCase({
                 productId: req.query?.id,
-                userId: user._id,
+                userId: req.currentUser?._id,
             });
         })
     );

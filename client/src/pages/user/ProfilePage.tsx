@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../lib/client";
 import { UserType } from "../../types/databaseTypes";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Card } from "@nextui-org/react";
 
 export default function ProfilePage() {
     const [user, setUser] = useState<UserType | null>(null);
@@ -18,18 +18,23 @@ export default function ProfilePage() {
             });
     }, []);
     return (
-        <div>
-            <p>ProfilePage</p>
+        <div className="mt-8">
             {user ? (
-                <section>
+                <section className="space-y-4 max-w-md mx-auto">
                     <Avatar
                         isBordered
                         showFallback
                         src="https://i.pravatar.cc/150?u=a04258114e29026708"
-                        className="w-20 h-20 text-large"
+                        className="w-32 h-32 text-large mx-auto"
                     />
-                    <p>{user.username}</p>
-                    <p>{user.email}</p>
+                    <Card className="p-4">
+                        <small className="text-default-500">USERNAME</small>
+                        <p className="text-lg">{user.username}</p>
+                    </Card>
+                    <Card className="p-4">
+                        <small className="text-default-500">EMAIL</small>
+                        <p className="text-lg">{user.email}</p>
+                    </Card>
                 </section>
             ) : (
                 <p>No data</p>

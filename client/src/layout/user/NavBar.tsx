@@ -11,9 +11,13 @@ import {
 } from "@nextui-org/react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoBag as ShopIcon } from "react-icons/io5";
+import cookie from "js-cookie";
 
 export default function NavBar() {
     const navigate = useNavigate();
+    const handleLogOut = () => {
+        cookie.remove("__emc-user-token");
+    };
     return (
         <Navbar>
             <NavbarBrand>
@@ -64,7 +68,10 @@ export default function NavBar() {
                             onClick={() => navigate("/cart")}>
                             <Link to="/cart">Cart</Link>
                         </DropdownItem>
-                        <DropdownItem key="logout" color="danger">
+                        <DropdownItem
+                            onClick={handleLogOut}
+                            key="logout"
+                            color="danger">
                             Log Out
                         </DropdownItem>
                     </DropdownMenu>

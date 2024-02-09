@@ -1,5 +1,5 @@
 import buildRoutes from "./productRoutes.js";
-import { verifyUser } from "../lib/autherizeUser.js";
+import { verifyUser } from "../lib/verifyUser.js";
 import {
     addProductUseCase,
     getAllProductsUseCase,

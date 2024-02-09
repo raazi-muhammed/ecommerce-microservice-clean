@@ -1,4 +1,12 @@
 import makeRoutes from "./userRoutes.js";
-import { getAllUsersUseCase } from "../useCases/index.js";
+import {
+    getAllUsersUseCase,
+    blockUserUserCase,
+    unBlockUserUserCase,
+} from "../useCases/index.js";
 
-export default makeRoutes({ getAllUsersUseCase });
+export default makeRoutes({
+    getAllUsersUseCase,
+    blockUserUserCase,
+    unBlockUserUserCase,
+});

@@ -3,6 +3,7 @@ export type UserType = {
     email: string;
     username: string;
     createdAt: string;
+    isBlocked: boolean;
 };
 
 export type ProductType = {

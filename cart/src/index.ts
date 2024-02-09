@@ -24,36 +24,6 @@ app.use(
     })
 );
 
-app.get("/api/cart/get-cart", async (req, res) => {
-    console.log("get cart");
-    try {
-        const connection = await amqp.connect("amqp://rabbitmq:5672");
-        const channel = await connection.createChannel();
-        const result = await channel.assertQueue("jobs");
-
-        channel.sendToQueue("jobs", Buffer.from("hello how are??"));
-        console.log("job send");
-    } catch (error) {
-        console.log(error);
-    }
-    res.send("hooi");
-
-    /* axios
-        .get("http://auth:4000/api/auth/current-user", {
-            headers: {
-                Authorization: req.headers.authorization,
-            },
-        })
-        .then((response) => {
-            console.log({ data: response.data.data.data });
-            res.send(response.data.data);
-        })
-        .catch((err) => {
-            console.log({ err });
-            res.send({ err });
-        }); */
-});
-
 app.use("/api/cart", cartRoutes);
 
 app.get("*", (req, res) => {

@@ -36,7 +36,7 @@ export default function LoginPage() {
         const data = await api
             .auth()
             .post("/admin/login", { data: values }, { toast });
-        if (data.success) navigate("/admin/dashboard");
+        if (data.success) navigate("/admin/dashboard/products");
     };
 
     return (
