@@ -1,25 +1,14 @@
 import axios from "axios";
 import { Request, Response, NextFunction } from "express";
 
-declare global {
-    namespace Express {
-        interface Request {
-            currentUser?: { _id: string };
-        }
-    }
-}
-
-export async function verifyUser(
+export async function verifyAdmin(
     req: Request,
     res: Response,
     next: NextFunction
 ) {
     try {
-        const data = await verifyUserRequest(req);
-        if (!data) throw new Error("Failed to verify user");
-        console.log({ data });
-
-        req.currentUser = data;
+        const data = await verifyAdminRequest(req);
+        if (!data) throw new Error("Failed to verify admin");
 
         next();
     } catch (error) {
@@ -30,9 +19,9 @@ export async function verifyUser(
     }
 }
 
-function verifyUserRequest(req) {
+function verifyAdminRequest(req) {
     return axios
-        .get("http://auth:4000/api/auth/current-user", {
+        .get("http://auth:4000/api/auth/verify-admin", {
             headers: {
                 Authorization: req.headers.authorization,
             },

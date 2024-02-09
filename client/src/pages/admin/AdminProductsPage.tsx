@@ -21,7 +21,7 @@ import { IoAddCircle as AddIcon } from "react-icons/io5";
 const schema = z.object({
     title: z.string().min(3),
     description: z.string().min(12),
-    image: z.string().min(1),
+    image: z.string().min(1).url(),
     price: z.number().min(10),
 });
 

@@ -1,22 +1,17 @@
 import express from "express";
 import makeCallback from "../lib/expressCallback.js";
-import { addToCartByIdUseCase as addToCartByIdUseCaseOG } from "../useCases/index.js";
 export default function buildRoutes({
     verifyUser,
+    verifyAdmin,
     addProductUseCase,
     getAllProductsUseCase,
     deleteProductByIdUseCase,
     addToCartByIdUseCase,
-}: {
-    verifyUser: any;
-    addProductUseCase: any;
-    getAllProductsUseCase: any;
-    deleteProductByIdUseCase: any;
-    addToCartByIdUseCase: typeof addToCartByIdUseCaseOG;
 }) {
     const router = express.Router();
     router.post(
         "/add-product",
+        verifyAdmin,
         makeCallback(({ body }) => addProductUseCase(body))
     );
     router.get(
@@ -25,6 +20,7 @@ export default function buildRoutes({
     );
     router.patch(
         "/delete-product",
+        verifyAdmin,
         makeCallback(
             async ({ query }) => await deleteProductByIdUseCase(query.id)
         )

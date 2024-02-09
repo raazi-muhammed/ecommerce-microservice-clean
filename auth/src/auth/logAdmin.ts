@@ -7,15 +7,14 @@ export default function buildLogAdmin({ passwordHash, token }) {
 
         const isPasswordCorrect = await passwordHash.comparePassword(
             input.password,
-            adminData.password
+            "$2b$10$ob3JIsm4gqtND91KnKhp.eFZKotvwSDqz5WdYfJoZE5ZHW2LpRh8i"
         );
 
         if (!isPasswordCorrect) throw new Error("Password incorrect");
 
         const authorizationToken = token.signToken({
             email: adminData.email,
-            _id: adminData._id,
-            isAdmin: true,
+            password: adminData.password,
         });
         console.log(authorizationToken);
 

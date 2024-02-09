@@ -44,7 +44,6 @@ export default function LoginPage() {
         const response = await api
             .auth()
             .post("/login", { data: values }, { toast });
-        console.log(response, response?.data?.token);
         cookie.set("__emc-user-token", response.data.token);
         navigate("/");
     };

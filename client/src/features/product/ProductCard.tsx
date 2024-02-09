@@ -2,12 +2,17 @@ import { Card, CardBody, Image, Button } from "@nextui-org/react";
 import { IoCart as CartIcon } from "react-icons/io5";
 import { ProductType } from "../../types/databaseTypes";
 import API from "../../lib/client";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
     function handleAddToCart() {
         const api = new API();
 
-        api.product().post("/add-to-cart", { params: { id: product._id } });
+        api.product().post(
+            "/add-to-cart",
+            { params: { id: product._id } },
+            { toast }
+        );
     }
 
     return (

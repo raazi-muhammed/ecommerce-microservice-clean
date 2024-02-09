@@ -15,21 +15,15 @@ export default function buildCartRoutes({
     );
     router.get(
         "/user-cart",
+        verifyUser,
         makeCallback(async (req) => {
-            const user = await verifyUser(req);
-            if (!user) throw new Error("User not authorized");
-
-            return getUserCartUseCase({ userId: user._id });
+            return getUserCartUseCase({ userId: req.currentUser._id });
         })
     );
     router.delete(
         "/remove-from-cart",
+        verifyUser,
         makeCallback(async (req) => {
-            const user = await verifyUser(req);
-            if (!user) throw new Error("User not authorized");
-            console.log("intiated refoming");
-            console.log(req.query);
-
             return removeFromCartUseCase({ id: req.query?.id });
         })
     );

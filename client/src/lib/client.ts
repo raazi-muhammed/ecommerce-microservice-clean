@@ -126,4 +126,30 @@ export default class API {
                 return err.response.data;
             });
     }
+    async put(url: string, { data = {}, params = {} }, options: Options = {}) {
+        return axios({
+            baseURL: this.baseUrl,
+            headers: { Authorization: `Bearer ${this.token}` },
+            url,
+            method: "PUT",
+            withCredentials: true,
+            data,
+            params,
+        })
+            .then((res) => {
+                if (options?.toast) {
+                    options.toast.success(res?.data?.message || "Successful");
+                }
+                return res.data;
+            })
+            .catch((err) => {
+                console.log(err);
+                if (options?.toast) {
+                    options.toast.error(
+                        err.response?.data?.message || "Invalid Details"
+                    );
+                }
+                return err.response.data;
+            });
+    }
 }

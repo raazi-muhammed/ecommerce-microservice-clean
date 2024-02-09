@@ -1,5 +1,6 @@
 import buildRoutes from "./productRoutes.js";
 import { verifyUser } from "../lib/verifyUser.js";
+import { verifyAdmin } from "../lib/verifyAdmin.js";
 import {
     addProductUseCase,
     getAllProductsUseCase,
@@ -9,6 +10,7 @@ import {
 
 export default buildRoutes({
     verifyUser,
+    verifyAdmin,
     addProductUseCase,
     getAllProductsUseCase,
     deleteProductByIdUseCase,

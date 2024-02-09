@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 
-type TokenDataType = { email: string; _id: string };
+type TokenDataType = { email: string; _id: string; password: string };
 export function signToken(data: TokenDataType) {
     if (!ACCESS_TOKEN_SECRET) throw new Error("No salt for jwt");
 

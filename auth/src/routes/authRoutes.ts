@@ -6,6 +6,7 @@ export default function makeRoutes({
     signUpController,
     loginAdminController,
     currentUserController,
+    verifyAdminController,
 }) {
     const router = express.Router();
 
@@ -13,6 +14,7 @@ export default function makeRoutes({
     router.post("/sign-up", makeCallback(signUpController));
     router.post("/admin/login", makeCallback(loginAdminController));
     router.get("/current-user", makeCallback(currentUserController));
+    router.get("/verify-admin", makeCallback(verifyAdminController));
 
     return router;
 }

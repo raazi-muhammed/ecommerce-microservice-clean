@@ -22,8 +22,8 @@ type BuildLogUser = {
 
 export default function buildLogUser({ passwordHash, token }: BuildLogUser) {
     return async function logUser({ input, userData }: LogUser) {
-        if (!input.password) throw new Error("No password");
         if (!input.email) throw new Error("No email");
+        if (!input.password) throw new Error("No password");
 
         const isPasswordCorrect = await passwordHash.comparePassword(
             input.password,

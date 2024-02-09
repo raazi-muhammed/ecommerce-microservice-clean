@@ -8,6 +8,7 @@ import * as z from "zod";
 import API from "../../lib/client";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import cookie from "js-cookie";
 
 const schema = z.object({
     email: z.string().email(),
@@ -33,10 +34,12 @@ export default function LoginPage() {
 
     const handleLogUser = async (values: z.infer<typeof schema>) => {
         const api = new API();
-        const data = await api
+        const response = await api
             .auth()
             .post("/admin/login", { data: values }, { toast });
-        if (data.success) navigate("/admin/dashboard/products");
+
+        cookie.set("__emc-user-token", response.data.token);
+        if (response.success) navigate("/admin/dashboard/products");
     };
 
     return (

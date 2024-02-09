@@ -15,7 +15,6 @@ export default function AdminUsersPage({}: Props) {
         api.user()
             .get("/all-users")
             .then((res) => {
-                console.log(res);
                 setUserList(res.data);
             })
             .catch((err) => console.log(err));

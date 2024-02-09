@@ -83,6 +83,7 @@ services:
     cart:
         build: ./cart
         container_name: emc-cart
+        restart: always
         depends_on:
             - db-cart
         ports:

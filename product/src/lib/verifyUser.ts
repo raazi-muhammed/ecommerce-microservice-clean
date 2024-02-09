@@ -1,10 +1,6 @@
 import axios from "axios";
 import { Request, Response, NextFunction } from "express";
 
-interface Req {
-    currentUser: Object;
-}
-
 declare global {
     namespace Express {
         interface Request {
@@ -27,7 +23,7 @@ export async function verifyUser(
 
         next();
     } catch (error) {
-        res.send({
+        res.status(400).json({
             success: false,
             message: "Invalid token",
         });

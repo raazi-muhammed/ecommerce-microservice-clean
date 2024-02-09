@@ -9,13 +9,13 @@ export default function makeCallback(controller: Function) {
             if (data) {
                 res.status(200).json({
                     success: true,
-                    message: "User Logged in",
+                    message: "Success",
                     data,
                 });
             } else {
                 res.status(200).json({
                     success: true,
-                    message: "User Logged in",
+                    message: "Success",
                 });
             }
         } catch (error) {

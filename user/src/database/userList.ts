@@ -1,3 +1,5 @@
+import { UserType } from "../models/userModel.js";
+
 export default function makeUserList({ database }) {
     return Object.freeze({
         getAll: async () => {
@@ -16,6 +18,15 @@ export default function makeUserList({ database }) {
                 { isBlocked: false },
                 { upsert: true }
             );
+        },
+        editUser: async ({
+            id,
+            userInfo,
+        }: {
+            id: string;
+            userInfo: { email: string; username: string };
+        }) => {
+            return await database.updateOne({ _id: id }, { userInfo });
         },
     });
 }
