@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: auth-depl
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: auth
+    template:
+        metadata:
+            labels:
+                app: auth
+        spec:
+            containers:
+                - name: auth
+                  image: raazimuhammed/emc-auth
+                  ports:
+                      - containerPort: 4000
+                  env:
+                      - name: PORT
+                        value: "4000"
+                      - name: ACCESS_TOKEN_SECRET
+                        value: "KX4tp1gUlQ"
+                      - name: ADMIN_EMAIL
+                        value: "admin@admin.com"
+                      - name: ADMIN_PASSWORD
+                        value: "$2b$10$ob3JIsm4gqtND91KnKhp.eFZKotvwSDqz5WdYfJoZE5ZHW2LpRh8i"
+                      - name: DB_URL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: mongo-user-config
+                                key: mongo-url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: auth-srv
+spec:
+    selector:
+        app: auth
+    ports:
+        - name: auth
+          protocol: TCP
+          port: 4000
+          targetPort: 4000

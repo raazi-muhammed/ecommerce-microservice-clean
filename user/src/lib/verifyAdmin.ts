@@ -21,7 +21,7 @@ export async function verifyAdmin(
 
 function verifyAdminRequest(req) {
     return axios
-        .get("http://auth:4000/api/auth/verify-admin", {
+        .get(`${process.env.AUTH_SERVICE_URL}/api/auth/verify-admin`, {
             headers: {
                 Authorization: req.headers.authorization,
             },

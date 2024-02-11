@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mongo-product
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mongo-product
+    template:
+        metadata:
+            labels:
+                app: mongo-product
+        spec:
+            containers:
+                - name: mongo-product
+                  image: mongo
+                  ports:
+                      - containerPort: 27017
+                  env:
+                      - name: MONGO_INITDB_ROOT_USERNAME
+                        valueFrom:
+                            secretKeyRef:
+                                name: mongo-secret
+                                key: mongo-user
+                      - name: MONGO_INITDB_ROOT_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: mongo-secret
+                                key: mongo-password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mongo-product-svc
+spec:
+    selector:
+        app: mongo-product
+    ports:
+        - protocol: TCP
+          port: 27017
+          targetPort: 27017

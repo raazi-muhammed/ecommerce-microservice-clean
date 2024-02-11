@@ -14,6 +14,22 @@ export default class API {
     }
 
     auth() {
+        this.baseUrl += "emc.com/api/auth/api/auth";
+        return this;
+    }
+    user() {
+        this.baseUrl += "emc.com/api/user/api/user";
+        return this;
+    }
+    product() {
+        this.baseUrl += "emc.com/api/product/api/product";
+        return this;
+    }
+    cart() {
+        this.baseUrl += "emc.com/api/cart/api/cart";
+        return this;
+    }
+    /* auth() {
         this.baseUrl += "localhost:4000/api/auth";
         return this;
     }
@@ -28,7 +44,7 @@ export default class API {
     cart() {
         this.baseUrl += "localhost:4003/api/cart";
         return this;
-    }
+    } */
 
     async get(url: string, params = {}, options: Options = {}) {
         return axios({

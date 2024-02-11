@@ -32,7 +32,7 @@ export async function verifyUser(
 
 function verifyUserRequest(req) {
     return axios
-        .get("http://auth:4000/api/auth/current-user", {
+        .get(`${process.env.AUTH_SERVICE_URL}/api/auth/current-user`, {
             headers: {
                 Authorization: req.headers.authorization,
             },

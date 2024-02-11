@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: product-depl
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: product
+    template:
+        metadata:
+            labels:
+                app: product
+        spec:
+            containers:
+                - name: product
+                  image: raazimuhammed/emc-product
+                  ports:
+                      - containerPort: 4002
+                  env:
+                      - name: PORT
+                        value: "4002"
+                      - name: AUTH_SERVICE_URL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: auth-srv-config
+                                key: auth-url
+                      - name: DB_URL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: mongo-product-config
+                                key: mongo-url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: product-srv
+spec:
+    selector:
+        app: product
+    ports:
+        - name: product
+          protocol: TCP
+          port: 4002
+          targetPort: 4002
